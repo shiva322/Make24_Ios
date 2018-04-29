@@ -13,6 +13,7 @@
 		848DAF58209472B700FAE157 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 848DAF57209472B700FAE157 /* Assets.xcassets */; };
 		848DAF5B209472B700FAE157 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848DAF59209472B700FAE157 /* LaunchScreen.storyboard */; };
 		848DAF6320947C5C00FAE157 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848DAF6220947C5C00FAE157 /* Home.storyboard */; };
+		848DAF652096527600FAE157 /* Mak24ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DAF642096527600FAE157 /* Mak24ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		848DAF5A209472B700FAE157 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		848DAF5C209472B700FAE157 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		848DAF6220947C5C00FAE157 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		848DAF642096527600FAE157 /* Mak24ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mak24ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				848DAF50209472B700FAE157 /* AppDelegate.swift */,
 				848DAF52209472B700FAE157 /* ViewController.swift */,
 				848DAF54209472B700FAE157 /* Main.storyboard */,
+				848DAF642096527600FAE157 /* Mak24ViewController.swift */,
 				848DAF57209472B700FAE157 /* Assets.xcassets */,
 				848DAF59209472B700FAE157 /* LaunchScreen.storyboard */,
 				848DAF5C209472B700FAE157 /* Info.plist */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				848DAF53209472B700FAE157 /* ViewController.swift in Sources */,
+				848DAF652096527600FAE157 /* Mak24ViewController.swift in Sources */,
 				848DAF51209472B700FAE157 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
