@@ -83,8 +83,8 @@ class Mak24ViewController: UIViewController {
     }
     
     func enableDone(){
-        if(!(Number1.isEnabled || Number2.isEnabled
-        || Number3.isEnabled || Number4.isEnabled))
+        if(Number1.isEnabled || Number2.isEnabled
+        || Number3.isEnabled || Number4.isEnabled)
         {
             doneButton.isEnabled = true;
             doneButton.alpha = 1;
@@ -93,6 +93,8 @@ class Mak24ViewController: UIViewController {
     }
     
     @IBAction func tapDelete(_ sender: Any) {
+        
+        
         if(!CalcTextView.text.isEmpty){
         let lastChar = CalcTextView.text.last!
         //CalcTextView.insertText(String(lastChar))
@@ -124,8 +126,17 @@ class Mak24ViewController: UIViewController {
         default:
             break;
         }
+        
         CalcTextView.deleteBackward()
+            if(CalcTextView.text.isEmpty)
+            {
+                doneButton.isEnabled=(!doneButton.isEnabled);
+                doneButton.alpha=0.5;
+            }
         }
+        
+        
+        
     }
     
     func calculate(_ equation : String){
