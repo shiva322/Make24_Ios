@@ -149,6 +149,8 @@ class Mak24ViewController: UIViewController {
             }
             else {
              self.present(errorAlert, animated: true, completion: nil)
+                clearAll();
+                
          //       errorBanner.show()
             }
         } else {
@@ -167,6 +169,21 @@ class Mak24ViewController: UIViewController {
     
     func randomNumber() -> Int {
         return Int(arc4random_uniform(8))+1
+    }
+    
+    func clearAll(){
+        Number1.isEnabled=true;
+        Number2.isEnabled=true;
+        Number3.isEnabled=true;
+        Number4.isEnabled=true;
+        
+        Number1.alpha = 1;
+        Number2.alpha = 1;
+        Number3.alpha = 1;
+        Number4.alpha = 1;
+        
+        CalcTextView.text="";
+        TimeField.text = "00:00";
     }
     
     func startNewGame(alert : UIAlertAction?=nil){
