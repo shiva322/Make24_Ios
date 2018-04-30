@@ -231,14 +231,30 @@
                                     <action selector="tapDone:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QlL-ex-GG0"/>
                                 </connections>
                             </button>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pdp-8M-6nC">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdp-8M-6nC">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem style="done" systemItem="fastForward" id="SPO-LU-IFy"/>
-                                    <barButtonItem style="done" systemItem="flexibleSpace" id="Bw4-yi-o3q"/>
-                                    <barButtonItem style="done" systemItem="search" id="6ou-cU-wKx"/>
-                                    <barButtonItem style="done" systemItem="refresh" id="oNf-zQ-sIo"/>
+                                    <barButtonItem title="Clear" width="82.5" id="OeK-Bg-jk9">
+                                        <connections>
+                                            <action selector="tapClear:" destination="BYZ-38-t0r" id="voB-uk-DiG"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Show Me" id="zoh-fY-4C0">
+                                        <connections>
+                                            <action selector="showSolution:" destination="BYZ-38-t0r" id="9ol-fU-a3f"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Assign Numbers" width="175.5" id="OfI-5A-n06">
+                                        <connections>
+                                            <action selector="assignNumbers:" destination="BYZ-38-t0r" id="TlF-sk-O8k"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="done" systemItem="fastForward" id="SPO-LU-IFy">
+                                        <connections>
+                                            <action selector="tapSkip:" destination="BYZ-38-t0r" id="qPU-Fd-cJr"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import NotificationBannerSwift
 
 class Mak24ViewController: UIViewController {
 
@@ -22,27 +23,32 @@ class Mak24ViewController: UIViewController {
     @IBOutlet weak var SkipField: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     
+    var bingoAlert : UIAlertController!
+    var errorAlert : UIAlertController!
+    var timer = Timer();
+    var intCounter = 0;
+  //  var errorBanner : NotificationBanner!
     @IBAction func tapNumber1(_ sender: UIButton) {
         CalcTextView.insertText(Number1.title(for:.normal)!)
-            Number1.isEnabled = false;
-            Number1.alpha = 0.5
+        toggleNumber(Number1)
+        enableDone()
     }
     
     @IBAction func tapNumber2(_ sender: UIButton) {
         CalcTextView.insertText(Number2.title(for:.normal)!)
-        Number2.isEnabled = false;
-        Number2.alpha = 0.5
+        toggleNumber(Number2)
+        enableDone()
     }
     
     @IBAction func tapNumber3(_ sender: UIButton) {
         CalcTextView.insertText(Number3.title(for:.normal)!)
-        Number3.isEnabled = false;
-        Number3.alpha = 0.5
+        toggleNumber(Number3)
+        enableDone()
     }
     @IBAction func tapNumber4(_ sender: UIButton) {
         CalcTextView.insertText(Number4.title(for:.normal)!)
-        Number4.isEnabled = false;
-        Number4.alpha = 0.5
+        toggleNumber(Number4)
+        enableDone()
     }
 
     
@@ -65,6 +71,27 @@ class Mak24ViewController: UIViewController {
     @IBAction func tapRightBrac(_ sender: Any) {
         CalcTextView.insertText(")")
     }
+    
+    func toggleNumber(_ number: UIButton!){
+        if(number.isEnabled) {
+            number.alpha = 0.5
+        }
+        else {
+            number.alpha = 1
+        }
+        number.isEnabled = !number.isEnabled
+    }
+    
+    func enableDone(){
+        if(!(Number1.isEnabled || Number2.isEnabled
+        || Number3.isEnabled || Number4.isEnabled))
+        {
+            doneButton.isEnabled = true;
+            doneButton.alpha = 1;
+    
+        }
+    }
+    
     @IBAction func tapDelete(_ sender: Any) {
         if(!CalcTextView.text.isEmpty){
         let lastChar = CalcTextView.text.last!
@@ -72,29 +99,25 @@ class Mak24ViewController: UIViewController {
         switch lastChar {
         case Number1.title(for: .normal)!.last!:
             if(!Number1.isEnabled){
-                Number1.isEnabled = true
-                Number1.alpha = 1
+                toggleNumber(Number1)
                 break;
             }
             fallthrough
         case Number2.title(for: .normal)!.last!:
             if(!Number2.isEnabled){
-                Number2.isEnabled = true
-                Number2.alpha = 1
+                toggleNumber(Number2)
                 break;
             }
             fallthrough
         case Number3.title(for: .normal)!.last!:
             if(!Number3.isEnabled){
-                Number3.isEnabled = true
-                Number3.alpha = 1
+                toggleNumber(Number3)
                 break;
             }
             fallthrough
         case Number4.title(for: .normal)!.last!:
             if(!Number4.isEnabled){
-                Number4.isEnabled = true
-                Number4.alpha = 1
+                toggleNumber(Number4)
                 break;
             }
             fallthrough
@@ -105,10 +128,29 @@ class Mak24ViewController: UIViewController {
         }
     }
     
+    func calculate(_ equation : String){
+        let expr = NSExpression(format: equation)
+        if let result = expr.expressionValue(with: nil, context: nil) as? Int {
+            if result==24 {
+            SuccessField.text = String(Int(SuccessField.text!)!+1);
+            bingoAlert.message = equation + "= 24";
+            self.present(bingoAlert, animated: true, completion: nil)
+            }
+            else {
+             self.present(errorAlert, animated: true, completion: nil)
+         //       errorBanner.show()
+            }
+        } else {
+            print("failed")
+        }
+        
+    }
+    
     @IBAction func tapDone(_ sender: Any) {
         //Do Calc
-       // let expression = CalcTextView.text!;
-       // calculate(expression);
+        let expression:String = CalcTextView.text!;
+        AttemptLabel.text = String(Int(AttemptLabel.text!)!+1);
+        calculate(expression);
     }
     
     
@@ -116,25 +158,119 @@ class Mak24ViewController: UIViewController {
         return Int(arc4random_uniform(8))+1
     }
     
-    func startNewGame(){
+    func startNewGame(alert : UIAlertAction?=nil){
+        
         Number1.setTitle(String(self.randomNumber()), for: .normal)
         Number2.setTitle(String(self.randomNumber()), for: .normal)
         Number3.setTitle(String(self.randomNumber()), for: .normal)
         Number4.setTitle(String(self.randomNumber()), for: .normal)
+        doneButton.isEnabled = false;
+        doneButton.alpha = 0.5;
+
+        Number1.isEnabled=true;
+        Number2.isEnabled=true;
+        Number3.isEnabled=true;
+        Number4.isEnabled=true;
+        
+        Number1.alpha = 1;
+        Number2.alpha = 1;
+        Number3.alpha = 1;
+        Number4.alpha = 1;
+        
+        TimeField.text = "00:00";
+        intCounter = 0;
+    }
+    
+    
+    @IBAction func tapSkip(_ sender: UIBarButtonItem) {
+        startNewGame();
+        SkipField.text = String(Int(SkipField.text!)!+1);
+    }
+    
+    
+    @IBAction func tapClear(_ sender: UIBarButtonItem) {
+        CalcTextView.text! = ""
+        
+        Number1.isEnabled=true;
+        Number2.isEnabled=true;
+        Number3.isEnabled=true;
+        Number4.isEnabled=true;
+        
+        Number1.alpha = 1;
+        Number2.alpha = 1;
+        Number3.alpha = 1;
+        Number4.alpha = 1;
+    }
+    
+    
+    @IBAction func showSolution(_ sender: Any) {
+        let solutionAlert = UIAlertController(title: "Solution", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        solutionAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        solutionAlert.message! = "()"
+        
+         self.present(solutionAlert, animated: true, completion: nil)
+    }
+    
+    @IBAction func assignNumbers(_ sender: Any) {
+        
+        let assignAlert = UIAlertController(title: "Assign Numbers", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        assignAlert.addAction(UIAlertAction(title: "Assign", style: UIAlertActionStyle.default, handler: nil))
+        assignAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        
+        assignAlert.addTextField { (number1: UITextInput) in
+          //  number1.text(in: UITextRange(make))
+        }
+        assignAlert.addTextField { (number2: UITextInput) in
+          //  number2.text(in: UITextRange())
+        }
+        assignAlert.addTextField { (number3: UITextInput) in
+         //  number3.text(in: UITextRange())
+        }
+        assignAlert.addTextField { (number4: UITextInput) in
+           // number4.text(in: UITextRange())
+        }
+     //assignAlert.a
+      //      assignAlert.addTextField(configurationHandler: (number3: UITextInputMode) in
+             self.present(assignAlert, animated: true, completion: nil)
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // create the alert
+         bingoAlert = UIAlertController(title: "Bingoo!!", message: "This is my message.", preferredStyle: UIAlertControllerStyle.alert)
+        // add an action (button)
+        bingoAlert.addAction(UIAlertAction(title: "Next Puzzle", style: UIAlertActionStyle.default, handler: startNewGame))
+        
+        
+        
+        errorAlert = UIAlertController(title: "Incorrect!!", message: " Please try again!", preferredStyle: UIAlertControllerStyle.actionSheet)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+        
+       // errorBanner = NotificationBanner(title: "", subtitle: "", style: .failure)
+
+        
         AttemptLabel.text = "1";
         SuccessField.text = "0";
         SkipField.text = "0"
-        TimeField.text = "00:00";
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
+        
+        
         startNewGame()
         // Do any additional setup after loading the view.
     }
     
     
-    
+    @objc func updateCountdown() {
+        intCounter += 1
+        
+        //Set counter in UILabel
+        TimeField.text! = String(format: "%02d:%02d", (intCounter % 3600) / 60, (intCounter % 3600) % 60)
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
