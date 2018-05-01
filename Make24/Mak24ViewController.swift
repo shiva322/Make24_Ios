@@ -83,8 +83,8 @@ class Mak24ViewController: UIViewController {
     }
     
     func enableDone(){
-        if(Number1.isEnabled || Number2.isEnabled
-        || Number3.isEnabled || Number4.isEnabled)
+        if(!(Number1.isEnabled || Number2.isEnabled
+        || Number3.isEnabled || Number4.isEnabled))
         {
             doneButton.isEnabled = true;
             doneButton.alpha = 1;
@@ -102,24 +102,32 @@ class Mak24ViewController: UIViewController {
         case Number1.title(for: .normal)!.last!:
             if(!Number1.isEnabled){
                 toggleNumber(Number1)
+                doneButton.isEnabled = false;
+                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
         case Number2.title(for: .normal)!.last!:
             if(!Number2.isEnabled){
                 toggleNumber(Number2)
+                doneButton.isEnabled = false;
+                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
         case Number3.title(for: .normal)!.last!:
             if(!Number3.isEnabled){
                 toggleNumber(Number3)
+                doneButton.isEnabled = false;
+                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
         case Number4.title(for: .normal)!.last!:
             if(!Number4.isEnabled){
                 toggleNumber(Number4)
+                doneButton.isEnabled = false;
+                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
@@ -128,11 +136,7 @@ class Mak24ViewController: UIViewController {
         }
         
         CalcTextView.deleteBackward()
-            if(CalcTextView.text.isEmpty)
-            {
-                doneButton.isEnabled=(!doneButton.isEnabled);
-                doneButton.alpha=0.5;
-            }
+            
         }
         
         
@@ -149,7 +153,7 @@ class Mak24ViewController: UIViewController {
             }
             else {
              self.present(errorAlert, animated: true, completion: nil)
-                clearAll();
+                
                 
          //       errorBanner.show()
             }
@@ -171,20 +175,6 @@ class Mak24ViewController: UIViewController {
         return Int(arc4random_uniform(8))+1
     }
     
-    func clearAll(){
-        Number1.isEnabled=true;
-        Number2.isEnabled=true;
-        Number3.isEnabled=true;
-        Number4.isEnabled=true;
-        
-        Number1.alpha = 1;
-        Number2.alpha = 1;
-        Number3.alpha = 1;
-        Number4.alpha = 1;
-        
-        CalcTextView.text="";
-        TimeField.text = "00:00";
-    }
     
     func startNewGame(alert : UIAlertAction?=nil){
         
@@ -228,6 +218,11 @@ class Mak24ViewController: UIViewController {
         Number2.alpha = 1;
         Number3.alpha = 1;
         Number4.alpha = 1;
+        
+        doneButton.isEnabled = false;
+        doneButton.alpha = 0.5;
+        
+        
     }
     
     
