@@ -174,9 +174,15 @@ class Mak24ViewController: UIViewController {
         Number2.setTitle(String(self.randomNumber()), for: .normal)
         Number3.setTitle(String(self.randomNumber()), for: .normal)
         Number4.setTitle(String(self.randomNumber()), for: .normal)
+        
+        refreshButtons()
+        
+    }
+    
+    func refreshButtons(){
         doneButton.isEnabled = false;
         doneButton.alpha = 0.5;
-
+        
         Number1.isEnabled=true;
         Number2.isEnabled=true;
         Number3.isEnabled=true;
@@ -189,8 +195,8 @@ class Mak24ViewController: UIViewController {
         
         TimeField.text = "00:00";
         intCounter = 0;
+        
     }
-    
     
     @IBAction func tapSkip(_ sender: UIBarButtonItem) {
         startNewGame();
@@ -220,7 +226,6 @@ class Mak24ViewController: UIViewController {
     @IBAction func showSolution(_ sender: Any) {
         let solutionAlert = UIAlertController(title: "Solution", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
-        
         let result: String = showMe(a: Int(Number1.title(for: .normal)!)!,b: Int(Number2.title(for: .normal)!)!,c: Int(Number3.title(for: .normal)!)!,d: Int(Number4.title(for: .normal)!)!);
         
         solutionAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
@@ -233,11 +238,9 @@ class Mak24ViewController: UIViewController {
         
         let assignAlert = UIAlertController(title: "Assign Numbers", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
-        assignAlert.addAction(UIAlertAction(title: "Assign", style: UIAlertActionStyle.default, handler: nil))
-        assignAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-        
         assignAlert.addTextField { (number1: UITextField) in
-            number1.keyboardType = UIKeyboardType.decimalPad
+            number1.keyboardType = UIKeyboardType.numberPad
+            number1.textAlignment = .center
             
            // number1.shouldChangeText(in: (1...9), replacementText: 0)
             //number1.keyboardType =
@@ -245,17 +248,41 @@ class Mak24ViewController: UIViewController {
         }
         assignAlert.addTextField { (number2: UITextField) in
             number2.keyboardType = UIKeyboardType.numberPad
+            number2.textAlignment = .center
           //  number2.text(in: UITextRange())
         }
         assignAlert.addTextField { (number3: UITextField) in
             number3.keyboardType = UIKeyboardType.numberPad
+            number3.textAlignment = .center
          //  number3.text(in: UITextRange())
         }
         assignAlert.addTextField { (number4: UITextField) in
             number4.keyboardType = UIKeyboardType.numberPad
+            number4.textAlignment = .center
            // number4.text(in: UITextRange())
         }
-     //assignAlert.a
+     
+        assignAlert.addAction(UIAlertAction(title: "Assign", style: UIAlertActionStyle.default, handler:
+            { [weak assignAlert] (_) in
+                
+                let textField1 = assignAlert?.textFields![0] as UITextField!
+                let textField2 = assignAlert?.textFields![1] as UITextField!
+                let textField3 = assignAlert?.textFields![2] as UITextField!
+                let textField4 = assignAlert?.textFields![3] as UITextField!
+                
+                self.Number1.setTitle(textField1?.text, for: .normal)
+                self.Number2.setTitle(textField2?.text, for: .normal)
+                self.Number3.setTitle(textField3?.text, for: .normal)
+                self.Number4.setTitle(textField4?.text, for: .normal)
+                
+                self.refreshButtons()
+                
+                
+        } ))
+                assignAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+                
+        
+        
       //      assignAlert.addTextField(configurationHandler: (number3: UITextInputMode) in
              self.present(assignAlert, animated: true, completion: nil)
         
@@ -303,7 +330,6 @@ class Mak24ViewController: UIViewController {
          bingoAlert = UIAlertController(title: "Bingoo!!", message: "This is my message.", preferredStyle: UIAlertControllerStyle.alert)
         // add an action (button)
         bingoAlert.addAction(UIAlertAction(title: "Next Puzzle", style: UIAlertActionStyle.default, handler: startNewGame))
-        
         
         
         errorAlert = UIAlertController(title: "Incorrect!!", message: " Please try again!", preferredStyle: UIAlertControllerStyle.actionSheet)
@@ -393,26 +419,25 @@ class Mak24ViewController: UIViewController {
         }
     
         func eval(aInput:Int, bInput:Int,cInput:Int,dInput: Int,x: Character ,y: Character,z: Character )->String{
-            
             let a = Double(aInput)
             let b = Double(bInput)
             let c = Double(cInput)
             let d = Double(dInput)
             do {
                 if (bingo(x: eval(a: eval(a: eval(a: a, x: x, b: b), x: y, b: c), x: z, b: d))) {
-                    return "((" + "\(a)\(x)\(b)" + ")" + "\(y)\(c)" + ")" + "\(z)\(d)";
+                    return "((" + "\(aInput)\(x)\(bInput)" + ")" + "\(y)\(cInput)" + ")" + "\(z)\(dInput)";
                 }
                 if (bingo(x: eval(a: eval(a: a, x: x, b: eval(a: b, x: y, b: c)), x: z, b: d))) {
-                    return "(" + "\(a)\(x)" + "(" + "\(b)\(y)\(c)" + "))" + "\(z)\(d)";
+                    return "(" + "\(aInput)\(x)" + "(" + "\(bInput)\(y)\(cInput)" + "))" + "\(z)\(dInput)";
                 }
                 if (bingo(x: eval(a: a, x: x, b: eval(a: eval(a: b, x: y, b: c), x: z, b: d)))) {
-                    return "" + "\(a)\(x)" + "((" + "\(b)\(y)\(c)" + ")" + "\(z)\(d)" + ")";
+                    return "" + "\(aInput)\(x)" + "((" + "\(bInput)\(y)\(cInput)" + ")" + "\(z)\(dInput)" + ")";
                 }
                 if (bingo(x: eval(a: a, x: x, b: eval(a: b, x: y, b: eval(a: c, x: z, b: d))))) {
-                    return "" + "\(a)\(x)" + "(" + "\(b)\(y)" + "(" + "\(c)\(z)\(d)" + ")" + ")";
+                    return "" + "\(aInput)\(x)" + "(" + "\(bInput)\(y)" + "(" + "\(cInput)\(z)\(dInput)" + ")" + ")";
                 }
                 if (bingo(x: eval(a: eval(a: a, x: x, b: b), x: y, b: eval(a: c, x: z, b: d)))) {
-                    return "((" + "\(a)\(x)\(b)" + ")" + "\(y)" + "(" + "\(c)\(z)\(d)" + "))";
+                    return "((" + "\(aInput)\(x)\(bInput)" + ")" + "\(y)" + "(" + "\(cInput)\(z)\(dInput)" + "))";
                 }
             }
             catch{

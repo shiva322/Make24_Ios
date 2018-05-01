@@ -14,6 +14,8 @@
 		848DAF5B209472B700FAE157 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848DAF59209472B700FAE157 /* LaunchScreen.storyboard */; };
 		848DAF6320947C5C00FAE157 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848DAF6220947C5C00FAE157 /* Home.storyboard */; };
 		848DAF652096527600FAE157 /* Mak24ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DAF642096527600FAE157 /* Mak24ViewController.swift */; };
+		848DAF6720984C2B00FAE157 /* AssignNumbers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848DAF6620984C2B00FAE157 /* AssignNumbers.storyboard */; };
+		848DAF6920984C5600FAE157 /* AssignNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DAF6820984C5600FAE157 /* AssignNumbers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		848DAF5C209472B700FAE157 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		848DAF6220947C5C00FAE157 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		848DAF642096527600FAE157 /* Mak24ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mak24ViewController.swift; sourceTree = "<group>"; };
+		848DAF6620984C2B00FAE157 /* AssignNumbers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AssignNumbers.storyboard; sourceTree = "<group>"; };
+		848DAF6820984C5600FAE157 /* AssignNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignNumbers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				848DAF59209472B700FAE157 /* LaunchScreen.storyboard */,
 				848DAF5C209472B700FAE157 /* Info.plist */,
 				848DAF6220947C5C00FAE157 /* Home.storyboard */,
+				848DAF6620984C2B00FAE157 /* AssignNumbers.storyboard */,
+				848DAF6820984C5600FAE157 /* AssignNumbers.swift */,
 			);
 			path = Make24;
 			sourceTree = "<group>";
@@ -133,6 +139,7 @@
 				848DAF58209472B700FAE157 /* Assets.xcassets in Resources */,
 				848DAF56209472B700FAE157 /* Main.storyboard in Resources */,
 				848DAF6320947C5C00FAE157 /* Home.storyboard in Resources */,
+				848DAF6720984C2B00FAE157 /* AssignNumbers.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +153,7 @@
 				848DAF53209472B700FAE157 /* ViewController.swift in Sources */,
 				848DAF652096527600FAE157 /* Mak24ViewController.swift in Sources */,
 				848DAF51209472B700FAE157 /* AppDelegate.swift in Sources */,
+				848DAF6920984C5600FAE157 /* AssignNumbers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
