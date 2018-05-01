@@ -102,32 +102,24 @@ class Mak24ViewController: UIViewController {
         case Number1.title(for: .normal)!.last!:
             if(!Number1.isEnabled){
                 toggleNumber(Number1)
-                doneButton.isEnabled = false;
-                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
         case Number2.title(for: .normal)!.last!:
             if(!Number2.isEnabled){
                 toggleNumber(Number2)
-                doneButton.isEnabled = false;
-                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
         case Number3.title(for: .normal)!.last!:
             if(!Number3.isEnabled){
                 toggleNumber(Number3)
-                doneButton.isEnabled = false;
-                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
         case Number4.title(for: .normal)!.last!:
             if(!Number4.isEnabled){
                 toggleNumber(Number4)
-                doneButton.isEnabled = false;
-                doneButton.alpha = 0.5;
                 break;
             }
             fallthrough
@@ -222,15 +214,17 @@ class Mak24ViewController: UIViewController {
         doneButton.isEnabled = false;
         doneButton.alpha = 0.5;
         
-        
     }
     
     
     @IBAction func showSolution(_ sender: Any) {
         let solutionAlert = UIAlertController(title: "Solution", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
+        
+        let result: String = showMe(a: Int(Number1.title(for: .normal)!)!,b: Int(Number2.title(for: .normal)!)!,c: Int(Number3.title(for: .normal)!)!,d: Int(Number4.title(for: .normal)!)!);
+        
         solutionAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-        solutionAlert.message! = "()"
+        solutionAlert.message! = result
         
          self.present(solutionAlert, animated: true, completion: nil)
     }
@@ -242,16 +236,23 @@ class Mak24ViewController: UIViewController {
         assignAlert.addAction(UIAlertAction(title: "Assign", style: UIAlertActionStyle.default, handler: nil))
         assignAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         
-        assignAlert.addTextField { (number1: UITextInput) in
+        assignAlert.addTextField { (number1: UITextField) in
+            number1.keyboardType = UIKeyboardType.decimalPad
+            
+           // number1.shouldChangeText(in: (1...9), replacementText: 0)
+            //number1.keyboardType =
           //  number1.text(in: UITextRange(make))
         }
-        assignAlert.addTextField { (number2: UITextInput) in
+        assignAlert.addTextField { (number2: UITextField) in
+            number2.keyboardType = UIKeyboardType.numberPad
           //  number2.text(in: UITextRange())
         }
-        assignAlert.addTextField { (number3: UITextInput) in
+        assignAlert.addTextField { (number3: UITextField) in
+            number3.keyboardType = UIKeyboardType.numberPad
          //  number3.text(in: UITextRange())
         }
-        assignAlert.addTextField { (number4: UITextInput) in
+        assignAlert.addTextField { (number4: UITextField) in
+            number4.keyboardType = UIKeyboardType.numberPad
            // number4.text(in: UITextRange())
         }
      //assignAlert.a
@@ -260,6 +261,41 @@ class Mak24ViewController: UIViewController {
         
     }
     
+    /*
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField.text!.count < 1  && string.count > 0{
+            let nextTag = textField.tag + 1
+            
+            // get next responder
+            var nextResponder = textField.superview?.viewWithTag(nextTag)
+            
+            if (nextResponder == nil){
+                
+                nextResponder = textField.superview?.viewWithTag(1)
+            }
+            textField.text = string
+            nextResponder?.becomeFirstResponder()
+            return false
+        }
+        else if textField.text!.count >= 1  && string.count == 0{
+            // on deleting value from Textfield
+            let previousTag = textField.tag - 1
+            
+            // get next responder
+            var previousResponder = textField.superview?.viewWithTag(previousTag)
+            
+            if (previousResponder == nil){
+                previousResponder = textField.superview?.viewWithTag(1)
+            }
+            textField.text = ""
+            previousResponder?.becomeFirstResponder()
+            return false
+        }
+        return true
+        
+    }
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -310,5 +346,100 @@ class Mak24ViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+
+        private static var N = 24.0;
+    
+        func showMe(a:Int,b:Int,c:Int,d:Int)->String {
+            var n:Array = [a, b, c, d];
+            var o:Array<Character> = ["+", "-", "*", "/"];
+            for w in 0...3 {
+                for x in 0...3{
+                    if (x == w){
+                        continue;
+                    }
+                    for y in 0...3{
+                        
+                        if (y == x || y == w){
+                            continue;
+                        }
+                        for z in 0...3{
+                            
+                            if (z == w || z == x || z == y){
+                                continue;
+                            }
+                            
+                            for i in 0...3{
+                                for j in 0...3{
+                                    for k in 0...3{
+                                
+                                        let result = eval(aInput: n[w], bInput: n[x],cInput: n[y],dInput: n[z], x: o[i], y: o[j], z: o[k]);
+                                        if (result != "") {
+                                            return result;
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            return ""
+        }
+    
+        func eval(aInput:Int, bInput:Int,cInput:Int,dInput: Int,x: Character ,y: Character,z: Character )->String{
+            
+            let a = Double(aInput)
+            let b = Double(bInput)
+            let c = Double(cInput)
+            let d = Double(dInput)
+            do {
+                if (bingo(x: eval(a: eval(a: eval(a: a, x: x, b: b), x: y, b: c), x: z, b: d))) {
+                    return "((" + "\(a)\(x)\(b)" + ")" + "\(y)\(c)" + ")" + "\(z)\(d)";
+                }
+                if (bingo(x: eval(a: eval(a: a, x: x, b: eval(a: b, x: y, b: c)), x: z, b: d))) {
+                    return "(" + "\(a)\(x)" + "(" + "\(b)\(y)\(c)" + "))" + "\(z)\(d)";
+                }
+                if (bingo(x: eval(a: a, x: x, b: eval(a: eval(a: b, x: y, b: c), x: z, b: d)))) {
+                    return "" + "\(a)\(x)" + "((" + "\(b)\(y)\(c)" + ")" + "\(z)\(d)" + ")";
+                }
+                if (bingo(x: eval(a: a, x: x, b: eval(a: b, x: y, b: eval(a: c, x: z, b: d))))) {
+                    return "" + "\(a)\(x)" + "(" + "\(b)\(y)" + "(" + "\(c)\(z)\(d)" + ")" + ")";
+                }
+                if (bingo(x: eval(a: eval(a: a, x: x, b: b), x: y, b: eval(a: c, x: z, b: d)))) {
+                    return "((" + "\(a)\(x)\(b)" + ")" + "\(y)" + "(" + "\(c)\(z)\(d)" + "))";
+                }
+            }
+            catch{
+                print("Error")
+            }
+            return "";
+        }
+ 
+    
+   
+    
+    func bingo(x: Double) -> Bool{
+    return abs(x - 24) < 0.0000001;
+    }
+    
+    func  eval(a: Double,x: Character,b: Double) -> Double {
+    switch (x) {
+    case "+":
+    return a + b;
+    case "-":
+    return a - b;
+    case "*":
+    return a * b;
+    default:
+    return a / b;
+    }
+    
+}
 
 }
