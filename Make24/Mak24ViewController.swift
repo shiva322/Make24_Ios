@@ -169,6 +169,7 @@ class Mak24ViewController: UIViewController {
     
     
     func startNewGame(alert : UIAlertAction?=nil){
+        CalcTextView.text! = ""
         
         Number1.setTitle(String(self.randomNumber()), for: .normal)
         Number2.setTitle(String(self.randomNumber()), for: .normal)
