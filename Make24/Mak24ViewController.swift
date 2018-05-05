@@ -27,6 +27,7 @@ class Mak24ViewController: UIViewController {
     var errorAlert : UIAlertController!
     var timer = Timer();
     var intCounter = 0;
+    var attempt_flag = 0;
   //  var errorBanner : NotificationBanner!
     @IBAction func tapNumber1(_ sender: UIButton) {
         CalcTextView.insertText(Number1.title(for:.normal)!)
@@ -139,11 +140,14 @@ class Mak24ViewController: UIViewController {
         let expr = NSExpression(format: equation)
         if let result = expr.expressionValue(with: nil, context: nil) as? Int {
             if result==24 {
+                attempt_flag = 1;
             SuccessField.text = String(Int(SuccessField.text!)!+1);
             bingoAlert.message = equation + "= 24";
             self.present(bingoAlert, animated: true, completion: nil)
             }
             else {
+                attempt_flag = 0;
+
              self.present(errorAlert, animated: true, completion: nil)
                 
                 
@@ -158,10 +162,12 @@ class Mak24ViewController: UIViewController {
     @IBAction func tapDone(_ sender: Any) {
         //Do Calc
         let expression:String = CalcTextView.text!;
-        AttemptLabel.text = String(Int(AttemptLabel.text!)!+1);
         calculate(expression);
-    }
+        if(attempt_flag==0){
+            AttemptLabel.text = String(Int(AttemptLabel.text!)!+1);
     
+        }
+    }
     
     func randomNumber() -> Int {
         return Int(arc4random_uniform(8))+1
