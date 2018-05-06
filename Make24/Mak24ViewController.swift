@@ -281,7 +281,7 @@ class Mak24ViewController: UIViewController {
                 let textField3 = assignAlert?.textFields![2] as UITextField!
                 let textField4 = assignAlert?.textFields![3] as UITextField!
                 
-                if((textField1?.text?.isEmpty)! && (textField2?.text?.isEmpty)! && (textField3?.text?.isEmpty)! && (textField4?.text?.isEmpty)!)
+                if(!(textField1?.text?.isEmpty)! && !(textField2?.text?.isEmpty)! && !(textField3?.text?.isEmpty)! && !(textField4?.text?.isEmpty)!)
                 {
                 self.Number1.setTitle(textField1?.text, for: .normal)
                 self.Number2.setTitle(textField2?.text, for: .normal)
