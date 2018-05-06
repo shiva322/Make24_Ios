@@ -249,6 +249,7 @@ class Mak24ViewController: UIViewController {
             number1.keyboardType = UIKeyboardType.numberPad
             number1.textAlignment = .center
             
+            
            // number1.shouldChangeText(in: (1...9), replacementText: 0)
             //number1.keyboardType =
           //  number1.text(in: UITextRange(make))
@@ -258,6 +259,9 @@ class Mak24ViewController: UIViewController {
             number2.textAlignment = .center
           //  number2.text(in: UITextRange())
         }
+        
+        
+        
         assignAlert.addTextField { (number3: UITextField) in
             number3.keyboardType = UIKeyboardType.numberPad
             number3.textAlignment = .center
@@ -277,16 +281,25 @@ class Mak24ViewController: UIViewController {
                 let textField3 = assignAlert?.textFields![2] as UITextField!
                 let textField4 = assignAlert?.textFields![3] as UITextField!
                 
+                if((textField1?.text?.isEmpty)! && (textField2?.text?.isEmpty)! && (textField3?.text?.isEmpty)! && (textField4?.text?.isEmpty)!)
+                {
                 self.Number1.setTitle(textField1?.text, for: .normal)
                 self.Number2.setTitle(textField2?.text, for: .normal)
                 self.Number3.setTitle(textField3?.text, for: .normal)
                 self.Number4.setTitle(textField4?.text, for: .normal)
                 
                 self.refreshButtons()
-                
-                
-        } ))
-                assignAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+                }
+                else{
+                    
+                    self.errorAlert.message = "Please fill in all the Numbers. Try Again !";
+                    self.present(self.errorAlert, animated: true, completion: nil)
+                }
+    
+
+                }))
+    
+    assignAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
                 
         
         
